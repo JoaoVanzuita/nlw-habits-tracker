@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  habits-web:
+    container_name: habits-web
+    image: node:lts-alpine
+    networks:
+      habits-network:
+    volumes:
+      - ./web:/usr/app
+    working_dir: /usr/app
+    command: sh -c "npm i && npm run dev"
+    ports:
+      - '5173:5173'
+
+  habits-server:
+    container_name: habits-server
+    image: node:lts-alpine
+    networks:
+      habits-network:
+    volumes:
+      - ./server:/usr/app
+    working_dir: /usr/app
+    command: sh -c "npm i && npm run dev"
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    env_file:
+      - .env
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - habits-db
+
+  habits-db:
+    container_name: habits-db
+    image: 'postgres:14-alpine'
+    networks:
+      habits-network:
+    restart: always
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+volumes:
+  pg-data: {}
+
+networks:
+  habits-network:

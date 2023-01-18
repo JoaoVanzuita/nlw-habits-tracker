@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  habits-web:
-    container_name: habits-web
-    image: node:lts-alpine
-    networks:
-      habits-network:
-    volumes:
-      - ./web:/usr/app
-    working_dir: /usr/app
-    command: sh -c "yarn && yarn dev"
-    ports:
-      - '5173:5173'
-
   habits-server:
     container_name: habits-server
     image: node:lts-alpine

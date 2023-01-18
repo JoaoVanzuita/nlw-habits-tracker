@@ -6,7 +6,14 @@ module.exports = {
     './index.html'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: '#090909'
+      },
+      gridTemplateRows: {
+        7: 'repeat(7, minmax(0, 1fr))'
+      }
+    },
   },
   plugins: [],
 }

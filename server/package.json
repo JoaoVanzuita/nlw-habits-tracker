@@ -13,8 +13,10 @@
   "dependencies": {
     "@fastify/cors": "^8.2.0",
     "@prisma/client": "^4.8.1",
+    "dayjs": "^1.11.7",
     "eslint-plugin-simple-import-sort": "^9.0.0",
-    "fastify": "^4.11.0"
+    "fastify": "^4.11.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
@@ -24,5 +26,8 @@
     "prisma": "^4.8.1",
     "tsx": "^3.12.2",
     "typescript": "^4.9.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }
